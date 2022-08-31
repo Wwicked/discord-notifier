@@ -8,7 +8,7 @@ def game_on():
     current_time = time.strftime("%X")
 
     title = random.choice(config.EMBEDS["on"]["titles"])
-    desc = random.choice(config.EMBEDS["on"]["description"])
+    desc = random.choice(config.EMBEDS["on"]["descriptions"])
     img = random.choice(config.EMBEDS["on"]["images"])
 
     embed = Embed(title=title, description=desc, color=Color.blue(),)
@@ -23,7 +23,7 @@ def game_off(started_at):
     elapsed = time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - started_at))
 
     title = random.choice(config.EMBEDS["off"]["titles"])
-    desc = random.choice(config.EMBEDS["off"]["description"])
+    desc = random.choice(config.EMBEDS["off"]["descriptions"])
     img = random.choice(config.EMBEDS["off"]["images"])
 
     embed = Embed(title=title, description=desc, color=Color.blue(),)

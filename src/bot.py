@@ -69,25 +69,18 @@ def main():
     start_game(config.STEAM_PATH, config.GAME_APP_ID)
     started = wait_for_game_to_start(
         config.GAME_PROCESS_NAME,
-        config.PROCESS_LIFE_CHECK_INTERVAL,
-        config.MAX_PROCESS_LIFE_CHECK_TRIES,
+        config.LIFE_CHECK_INTERVAL,
+        config.MAX_LIFE_CHECK_TRIES,
     )
 
     if not started:
         return
 
-    # Broadcast the game process being launched
-    broadcast_discord_message(
-        config.TOKEN, config.TARGET_CHANNEL_NAME, messages.game_on()
-    )
+    broadcast_discord_message(config.TOKEN, config.CHANNEL_NAME, messages.game_on())
+    wait_for_game_to_terminate(config.GAME_PROCESS_NAME, config.LIFE_CHECK_INTERVAL)
 
-    wait_for_game_to_terminate(
-        config.CSGO_PROCESS_NAME, config.PROCESS_LIFE_CHECK_INTERVAL
-    )
-
-    # Broadcast the game process being terminated
     broadcast_discord_message(
-        config.TOKEN, config.TARGET_CHANNEL_NAME, messages.game_off(start_time)
+        config.TOKEN, config.CHANNEL_NAME, messages.game_off(start_time)
     )
 
 
