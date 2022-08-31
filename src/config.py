@@ -1,12 +1,22 @@
-CSGO_PROCESS_NAME = "csgo"  # CSGO's windows process name
-PROCESS_LIFE_CHECK_INTERVAL = 3  # How long should the sleeps last while waiting for the game process to terminate (in seconds)
-MAX_PROCESS_LIFE_CHECK_TRIES = (
-    10  # Max tries for checking if the game launched properly
-)
-STEAM_PATH = "C:\Program Files (x86)\Steam"  # Absolute path to steam folder
-CSGO_APP_ID = 730  # CSGO steam-app id
 TOKEN = "secret-api-key"  # Secret API token provided by discord api
-TARGET_CHANNEL_NAME = (
-    "channel-name"  # Name of the channel that the bot will send the message in
-)
+STEAM_PATH = "C:\Program Files (x86)\Steam"  # Absolute path to steam folder
+TARGET_CHANNEL_NAME = "channel-name"  # Channel name the bot will send the message in
+GAME_APP_ID = 730  # Game steam-app id
+GAME_PROCESS_NAME = "csgo"  # Game's windows process name
+PROCESS_LIFE_CHECK_INTERVAL = 3  # How often to check if game has been terminated
+MAX_PROCESS_LIFE_CHECK_TRIES = 10  # Max tries for checking if the game launched
+
+# Settings for embeded messages
+EMBEDS = {
+    "on": {
+        "titles": ["CS:GO Launched", "Game launched"],
+        "descriptions": ["GL & HF"],
+        "images": ["https://cdn.frankerfacez.com/emoticon/113912/4"],
+    },
+    "off": {
+        "titles": ["CS:GO turned off", "Exited game"],
+        "descriptions": ["GGs"],
+        "images": ["https://cdn.frankerfacez.com/emoticon/299177/4"],
+    },
+}
 

@@ -1,10 +1,10 @@
 import discord
-import repo.src.messages as messages
 import asyncio
 import psutil
 import time
 import subprocess
-import repo.src.config as config
+import messages
+import config
 
 
 def is_process_running(name):
@@ -66,36 +66,29 @@ def wait_for_game_to_terminate(process_name, interval):
 def main():
     start_time = time.time()
 
-    print("Starting csgo...")
-    start_game(config.STEAM_PATH, config.CSGO_APP_ID)
+    start_game(config.STEAM_PATH, config.GAME_APP_ID)
     started = wait_for_game_to_start(
-        config.CSGO_PROCESS_NAME,
+        config.GAME_PROCESS_NAME,
         config.PROCESS_LIFE_CHECK_INTERVAL,
         config.MAX_PROCESS_LIFE_CHECK_TRIES,
     )
 
     if not started:
-        exit(0)
+        return
 
-    print("Started successfuly!")
-
-    # Immediately notify about the game launching
-    print(f"Attempting to broadcast game launch")
+    # Broadcast the game process being launched
     broadcast_discord_message(
         config.TOKEN, config.TARGET_CHANNEL_NAME, messages.game_on()
     )
-    print(f"Broadcasted game launch successfuly")
 
     wait_for_game_to_terminate(
         config.CSGO_PROCESS_NAME, config.PROCESS_LIFE_CHECK_INTERVAL
     )
 
     # Broadcast the game process being terminated
-    print(f"Attempting to broadcast game termination")
     broadcast_discord_message(
         config.TOKEN, config.TARGET_CHANNEL_NAME, messages.game_off(start_time)
     )
-    print(f"Broadcasted game termination successfuly")
 
 
 if __name__ == "__main__":
